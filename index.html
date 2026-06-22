@@ -3,124 +3,50 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Корпоративные данные · тренажёр</title>
+  <title>Тренажёр: Корпоративные данные</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="bg-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="bg-glow one"></div>
+  <div class="bg-glow two"></div>
   <header class="topbar">
-    <div class="brand" role="button" tabindex="0" id="homeLogo" title="На главную">
-      <div class="logo">CD</div>
-      <div>
-        <div class="brand-title">Корпоративные данные</div>
-        <div class="brand-subtitle">тренажёр к экзамену · v2</div>
-      </div>
+    <div>
+      <div class="eyebrow">экзамен без паники ✨</div>
+      <h1>Тренажёр по корпоративным данным</h1>
+      <p>20 вопросов в тесте, вопросы перемешиваются и не повторяются до конца банка.</p>
     </div>
-    <div class="profile-chip">
-      <span class="muted">Профиль</span>
-      <strong id="profileNameView">—</strong>
-      <button class="ghost small" id="changeProfileBtn">сменить</button>
+    <div class="score-card">
+      <span id="deckStatus">—</span>
+      <strong id="testTitle">Тест</strong>
     </div>
   </header>
 
-  <main class="app-shell">
-    <section class="hero-card" id="hero">
-      <div>
-        <p class="eyebrow">PDD-style mode activated</p>
-        <h1>Учишь банк заданий без боли и «а почему опять один и тот же тест?»</h1>
-        <p class="lead">Рандомные тесты, марафон, темы, копилка ошибок и сохранение прогресса на устройстве.</p>
+  <main class="layout">
+    <aside class="panel sticky">
+      <h2>Навигация</h2>
+      <div class="progress-wrap"><div id="progressBar"></div></div>
+      <div class="mini-stats">
+        <div><span id="answeredCount">0</span><small>проверено</small></div>
+        <div><span id="correctCount">0</span><small>верно</small></div>
+        <div><span id="wrongCount">0</span><small>ошибки</small></div>
       </div>
-      <div class="hero-stats">
-        <div><strong id="totalQuestionsView">0</strong><span>вопросов</span></div>
-        <div><strong id="answeredAllView">0</strong><span>решено</span></div>
-        <div><strong id="wrongBankView">0</strong><span>ошибок к разбору</span></div>
+      <button class="primary" id="checkAllBtn">Проверить весь тест</button>
+      <button class="ghost" id="nextTestBtn">Следующий тест</button>
+      <button class="linklike" id="resetBtn">Начать заново</button>
+      <div class="hint">
+        <b>Как учить:</b> сначала отвечай без подсказок, потом проверяй вопрос. Ошибки — это не позор, это корм для мозга, омномном.
       </div>
-    </section>
+    </aside>
 
-    <section class="profile-panel card" id="profilePanel">
-      <h2>Кто сегодня побеждает корпоративные данные?</h2>
-      <p class="muted">Имя нужно для локального профиля. На этом устройстве прогресс будет сохраняться автоматически.</p>
-      <div class="profile-row">
-        <input id="profileNameInput" placeholder="Например, Диана" value="Диана" />
-        <button id="startProfileBtn">Войти</button>
-      </div>
-      <p class="hint">Для переноса между телефоном и компьютером используй экспорт/импорт прогресса. Настоящая облачная синхронизация требует отдельной базы данных.</p>
-    </section>
-
-    <section class="dashboard" id="homeView">
-      <div class="mode-grid">
-        <article class="mode-card primary">
-          <div class="mode-icon">🎲</div>
-          <h2>Рандомный тест</h2>
-          <p>20 вопросов из разных тем. Вопросы и варианты ответов перемешиваются каждый раз.</p>
-          <button id="startRandomBtn">Начать 20 вопросов</button>
-        </article>
-        <article class="mode-card">
-          <div class="mode-icon">🏁</div>
-          <h2>Марафон</h2>
-          <p>Все задания банка в случайном порядке, страницами по 20 вопросов. Режим «добить всё».</p>
-          <button id="startMarathonBtn">Начать марафон</button>
-        </article>
-        <article class="mode-card">
-          <div class="mode-icon">🧠</div>
-          <h2>Ошибки</h2>
-          <p>Отдельная копилка вопросов, где последний ответ был неверным. Исправляешь — вопрос уходит из текущих ошибок.</p>
-          <button id="startMistakesBtn">Разобрать ошибки</button>
-        </article>
-      </div>
-
-      <div class="card tools-card">
-        <div>
-          <h2>Прогресс и перенос</h2>
-          <p class="muted">Сохраняется в браузере. Для другого устройства можно скачать файл прогресса и импортировать его там.</p>
-        </div>
-        <div class="tool-actions">
-          <button class="ghost" id="exportBtn">Экспорт прогресса</button>
-          <label class="ghost file-label">Импорт прогресса<input type="file" id="importInput" accept="application/json" /></label>
-          <button class="danger ghost" id="resetProfileBtn">Сбросить профиль</button>
-        </div>
-      </div>
-
-      <section class="topics-section">
-        <div class="section-title">
-          <h2>Темы</h2>
-          <p>Открой конкретный блок и реши все вопросы по нему.</p>
-        </div>
-        <div class="topic-grid" id="topicGrid"></div>
-      </section>
-    </section>
-
-    <section id="quizView" class="quiz-view hidden">
-      <div class="quiz-head card sticky-card">
-        <div>
-          <button class="ghost small" id="backHomeBtn">← Главная</button>
-          <p class="eyebrow" id="modeLabel">режим</p>
-          <h2 id="quizTitle">Тест</h2>
-          <p class="muted" id="quizMeta">—</p>
-        </div>
-        <div class="progress-wrap">
-          <div class="mini-stats">
-            <span><b id="pageAnswered">0</b> отвечено</span>
-            <span><b id="pageCorrect">0</b> верно</span>
-            <span><b id="pageWrong">0</b> ошибок</span>
-          </div>
-          <div class="progress"><span id="progressBar"></span></div>
-        </div>
-      </div>
-
-      <div class="quiz-actions card">
-        <button id="prevPageBtn" class="ghost">← Назад</button>
-        <button id="checkPageBtn">Проверить страницу</button>
-        <button id="nextPageBtn" class="ghost">Дальше →</button>
-        <button id="newAttemptBtn" class="ghost">Пройти заново</button>
-      </div>
-
+    <section class="content">
       <div id="summary" class="summary hidden"></div>
       <div id="questions"></div>
     </section>
   </main>
 
-  <div class="toast" id="toast"></div>
+  <footer>
+    Сделано для быстрой подготовки: темы, рандом, самопроверка, без backend и лишней боли.
+  </footer>
 
   <script src="questions.js"></script>
   <script src="app.js"></script>
