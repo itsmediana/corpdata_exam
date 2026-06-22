@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Тренажёр: Корпоративные данные</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-glow one"></div>
+  <div class="bg-glow two"></div>
+  <header class="topbar">
+    <div>
+      <div class="eyebrow">экзамен без паники ✨</div>
+      <h1>Тренажёр по корпоративным данным</h1>
+      <p>20 вопросов в тесте, вопросы перемешиваются и не повторяются до конца банка.</p>
+    </div>
+    <div class="score-card">
+      <span id="deckStatus">—</span>
+      <strong id="testTitle">Тест</strong>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="panel sticky">
+      <h2>Навигация</h2>
+      <div class="progress-wrap"><div id="progressBar"></div></div>
+      <div class="mini-stats">
+        <div><span id="answeredCount">0</span><small>проверено</small></div>
+        <div><span id="correctCount">0</span><small>верно</small></div>
+        <div><span id="wrongCount">0</span><small>ошибки</small></div>
+      </div>
+      <button class="primary" id="checkAllBtn">Проверить весь тест</button>
+      <button class="ghost" id="nextTestBtn">Следующий тест</button>
+      <button class="linklike" id="resetBtn">Начать заново</button>
+      <div class="hint">
+        <b>Как учить:</b> сначала отвечай без подсказок, потом проверяй вопрос. Ошибки — это не позор, это корм для мозга, омномном.
+      </div>
+    </aside>
+
+    <section class="content">
+      <div id="summary" class="summary hidden"></div>
+      <div id="questions"></div>
+    </section>
+  </main>
+
+  <footer>
+    Сделано для быстрой подготовки: темы, рандом, самопроверка, без backend и лишней боли.
+  </footer>
+
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
